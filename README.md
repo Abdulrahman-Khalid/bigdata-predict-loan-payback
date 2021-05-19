@@ -8,7 +8,7 @@ Data is from [LendingClub](https://www.lendingclub.com/)
 - python3-pip
 - Jupyter notebook
 
-TODO
+`$ python3 -m pip install -r requirements.txt`
 
 # Train Model
 ## Prepare Dataset
