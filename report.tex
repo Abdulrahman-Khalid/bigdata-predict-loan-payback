@@ -1,0 +1,1068 @@
+\documentclass[11pt]{article}
+
+    \usepackage[breakable]{tcolorbox}
+    \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+    
+    \usepackage{iftex}
+    \ifPDFTeX
+    	\usepackage[T1]{fontenc}
+    	\usepackage{mathpazo}
+    \else
+    	\usepackage{fontspec}
+    \fi
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionFormat{nocaption}{}
+    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range
+    \makeatletter % fix for old versions of grffile with XeLaTeX
+    \@ifpackagelater{grffile}{2019/11/01}
+    {
+      % Do nothing on new versions
+    }
+    {
+      \def\Gread@@xetex#1{%
+        \IfFileExists{"\Gin@base".bb}%
+        {\Gread@eps{\Gin@base.bb}}%
+        {\Gread@@xetex@aux#1}%
+      }
+    }
+    \makeatother
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % common color for the border for error outputs.
+    \definecolor{outerrorbackground}{HTML}{FFDFDF}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{report}
+    
+    
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb. 
+    \makeatletter
+        \newbox\Wrappedcontinuationbox 
+        \newbox\Wrappedvisiblespacebox 
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}} 
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}} 
+        \newcommand*\Wrappedcontinuationindent {3ex } 
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox} 
+        % Take advantage of the already applied Pygments mark-up to insert 
+        % potential linebreaks for TeX processing. 
+        %        {, <, #, %, $, ' and ": go to next line. 
+        %        _, }, ^, &, >, - and ~: stay at end of broken line. 
+        % Use of \textquotesingle for straight quote. 
+        \newcommand*\Wrappedbreaksatspecials {% 
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}% 
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}% 
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}% 
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}% 
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}% 
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}% 
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}% 
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}% 
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}% 
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}% 
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}% 
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}% 
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}% 
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}% 
+        } 
+        % Some characters . , ; ? ! / are not pygmentized. 
+        % This macro makes them "active" and they will insert potential linebreaks 
+        \newcommand*\Wrappedbreaksatpunct {% 
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}% 
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}% 
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}% 
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}% 
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}% 
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}% 
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}% 
+            \catcode`\.\active
+            \catcode`\,\active 
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active 
+            \lccode`\~`\~ 	
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+        
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active 	
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+    
+    % prompt
+    \makeatletter
+    \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
+    \makeatother
+    \newcommand{\prompt}[4]{
+        {\ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+\begin{document}
+    
+    \maketitle
+    
+    
+
+    
+    \# Introduction
+
+    LendingClub is a US peer-to-peer lending company, headquartered in San
+Francisco, California. It was the first peer-to-peer lender to register
+its offerings as securities with the Securities and Exchange Commission,
+and to offer loan trading on a secondary market. LendingClub is the
+world's largest peer-to-peer lending platform, Given historical data on
+loans given out with information on whether or not the borrower
+defaulted (charge-off), we can build a model that can predict if a
+borrower will pay back their loan. This way in the future when we get a
+new potential customer, we can assess if they are likely to pay back the
+loan.
+
+Objectives of this notebook is: - To show step-by-step how to visualize
+the dataset. - Data cleaning and preprocessing. - Assess whether or not
+a new customer is likely to pay back the loan.
+
+    \# Univariant Visualization
+
+    \hypertarget{loan-status-distribution}{%
+\subsection{Loan Status Distribution}\label{loan-status-distribution}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
++--------------------+-------+
+|         loan\_status|  count|
++--------------------+-------+
+|          Fully Paid|1076751|
+|             Default|     40|
+|                null|     33|
+|     In Grace Period|   8436|
+|Does not meet the{\ldots}|   1988|
+|         Charged Off| 268558|
+|            Oct-2015|      1|
+|  Late (31-120 days)|  21467|
+|             Current| 878317|
+|Does not meet the{\ldots}|    761|
+|   Late (16-30 days)|   4349|
++--------------------+-------+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_5_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{quote}
+filter the loan status to be only fully paid and charged off
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
++-----------+-------+
+|loan\_status|  count|
++-----------+-------+
+| Fully Paid|1076751|
+|Charged Off| 268558|
++-----------+-------+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_8_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{nulls-distribtion}{%
+\subsection{Nulls Distribtion}\label{nulls-distribtion}}
+
+\begin{itemize}
+\tightlist
+\item
+  Get columns which has the most number of null values and sort them
+\end{itemize}
+
+    \begin{quote}
+Visualize the most 50 columns with null values
+\end{quote}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_12_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{quote}
+The first most 50 columns with highest numbers\textgreater{} of nulls
+values (Almost all the values are null as number of rows are 1345309
+initially) So we have to drop them all as deletion of the rows
+equivelant to the deletion of most of the data and I can't replace it
+with any value as most of the values are null, and also if these columns
+are important they would be filled
+\end{quote}
+
+    \begin{quote}
+Visualize the next most 50 columns in null values count
+\end{quote}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{quote}
+The first 95 columns has lots of nulls so I will drop them
+\end{quote}
+
+    \begin{quote}
+Next, I will drop the rows which has null values they will have a small
+number of rows
+\end{quote}
+
+    \begin{quote}
+Number of Rows and Columns Now
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(1340812, 56)
+    \end{Verbatim}
+
+    \begin{quote}
+Rows Dropped Successfully
+\end{quote}
+
+    \hypertarget{loan-amount-distribution}{%
+\subsection{Loan Amount Distribution}\label{loan-amount-distribution}}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_23_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_25_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{quote}
+Drop the followin columns as they are constant columns and doesn't
+contribute to our prediction of loan\_status
+\end{quote}
+
+    \# Bivariant Visualization
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_29_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{quote}
+From the previous Correlation Matrix (policy\_code, out\_prncp,
+out\_prncp\_inv) don't have any correlation with any other columns so
+drop them
+\end{quote}
+
+    \begin{quote}
+Next, Check for redundant information columns: check pairs of features
+which has correlation value above 0.8
+\end{quote}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{42}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+                   feature1              feature2      corr
+1           fico\_range\_high        fico\_range\_low  1.000000
+2                 loan\_amnt           funded\_amnt  0.999567
+3           total\_pymnt\_inv           total\_pymnt  0.999548
+4           funded\_amnt\_inv           funded\_amnt  0.999447
+5           funded\_amnt\_inv             loan\_amnt  0.998929
+6   collection\_recovery\_fee            recoveries  0.972815
+7           total\_rec\_prncp           total\_pymnt  0.967105
+8           total\_rec\_prncp       total\_pymnt\_inv  0.966732
+9               funded\_amnt           installment  0.954036
+10              installment       funded\_amnt\_inv  0.953455
+11              installment             loan\_amnt  0.953388
+12          total\_pymnt\_inv       funded\_amnt\_inv  0.857143
+13              total\_pymnt           funded\_amnt  0.856896
+14              funded\_amnt       total\_pymnt\_inv  0.856674
+15              total\_pymnt             loan\_amnt  0.856653
+16              total\_pymnt       funded\_amnt\_inv  0.856447
+17                loan\_amnt       total\_pymnt\_inv  0.856354
+18      last\_fico\_range\_low  last\_fico\_range\_high  0.829738
+19              installment           total\_pymnt  0.818284
+20          total\_pymnt\_inv           installment  0.818049
+\end{Verbatim}
+\end{tcolorbox}
+        
+    It seems that the data have many duplicated information represented by
+multiple columns, so let's drop these duplicated columns
+
+\begin{itemize}
+\tightlist
+\item
+  fico\_range\_low = (fico\_range\_high)
+\item
+  funded\_amnt = funded\_amnt\_inv = installment = total\_pymnt\_inv =
+  total\_rec\_prncp = total\_pymnt = (loan\_amnt)
+\item
+  collection\_recovery\_fee = (recoveries)
+\item
+  last\_fico\_range\_low = (last\_fico\_range\_high)
+\end{itemize}
+
+\begin{quote}
+Drop them all except the columns between brackets () to avoid
+information redundancy
+\end{quote}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_35_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_36_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_37_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_38_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{quote}
+After dropping these columns
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(1340812, 41)
+    \end{Verbatim}
+
+    \# Preprocessing
+
+    \hypertarget{loan_status-column}{%
+\subsubsection{loan\_status Column}\label{loan_status-column}}
+
+    \begin{quote}
+Map loan\_status to new column called loan\_is\_paid has 1 and 0 values
+only, 1 for Fully Paid and 0 for Charged Off, and then drop the old
+loan\_status column
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
++------------+-------+
+|loan\_is\_paid|  count|
++------------+-------+
+|           1|1074961|
+|           0| 265851|
++------------+-------+
+
+    \end{Verbatim}
+
+    \begin{quote}
+New Correlation matrix
+\end{quote}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_48_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{quote}
+Correlation between loan\_is\_paid and all other numeric columns
+\end{quote}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_50_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{term-column}{%
+\subsubsection{term Column}\label{term-column}}
+
+    \begin{quote}
+map term column to new term\_months columns with mapped values from ' 36
+months' to 36 and from ' 60 months' to 60, and then drop the old term
+column
+\end{quote}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{44}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+[' 36 months', ' 60 months']
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
++-----------+
+|term\_months|
++-----------+
+|         60|
+|         36|
++-----------+
+
+    \end{Verbatim}
+
+    \hypertarget{home_ownership-column}{%
+\subsubsection{home\_ownership Column}\label{home_ownership-column}}
+
+    \begin{quote}
+We can merge NONE with ANY in one category
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
++--------------+------+
+|home\_ownership| count|
++--------------+------+
+|           OWN|144179|
+|          RENT|532381|
+|      MORTGAGE|663782|
+|           ANY|   328|
+|         OTHER|   142|
++--------------+------+
+
+    \end{Verbatim}
+
+    \hypertarget{grade-and-sub_grade-columns}{%
+\subsubsection{grade And sub\_grade
+Columns}\label{grade-and-sub_grade-columns}}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_64_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_65_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{quote}
+grade is part of sub\_grade, so let's drop it
+\end{quote}
+
+\begin{quote}
+Date columns: issue\_d, last\_pymnt\_d, last\_credit\_pull\_d are not
+important to the analysis
+\end{quote}
+
+\begin{quote}
+earliest\_cr\_line which is the month when reported credit line was
+opened is not important to the analysis
+\end{quote}
+
+\begin{quote}
+url for LC page with listing data is not important to the analysis
+\end{quote}
+
+\begin{quote}
+addresses: zip\_code, addr\_state are not important to the analysis
+\end{quote}
+
+    \hypertarget{handle-categorical-features}{%
+\subsection{Handle Categorical
+Features}\label{handle-categorical-features}}
+
+    \hypertarget{spark-pipeline}{%
+\subsubsection{Spark Pipeline}\label{spark-pipeline}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Categorical columns to string indexer to change categories to numbers
+\item
+  OneHotEncode these new numbers to (\#num of column - 1) new column
+  every column value with has 1 whenever this category happens to be in
+  this row
+\item
+  Assemble all the features the onehotencoded and the numeric columns in
+  one vector columns used as feature column
+\item
+  Get scaled\_feature column by scaling feature column using MinMaxcaler
+\end{enumerate}
+
+    Select now the two important columns used in building the model: -
+scaled\_features - loan\_is\_paid
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+root
+ |-- scaled\_features: vector (nullable = true)
+ |-- loan\_is\_paid: integer (nullable = true)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
++--------------------+------------+
+|     scaled\_features|loan\_is\_paid|
++--------------------+------------+
+|(81,[1,2,4,5,6,8,{\ldots}|           1|
++--------------------+------------+
+only showing top 1 row
+
+    \end{Verbatim}
+
+    \begin{quote}
+From previous table the number of scaled\_features are 81 feature
+\end{quote}
+
+    \# Deeplearning Model
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model: "sequential\_1"
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Layer (type)                 Output Shape              Param \#
+=================================================================
+dense\_6 (Dense)              (None, 78)                6396
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+dense\_7 (Dense)              (None, 39)                3081
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+dense\_8 (Dense)              (None, 19)                760
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+dense\_9 (Dense)              (None, 8)                 160
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+dense\_10 (Dense)             (None, 4)                 36
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+dense\_11 (Dense)             (None, 1)                 5
+=================================================================
+Total params: 10,438
+Trainable params: 10,438
+Non-trainable params: 0
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+    \end{Verbatim}
+
+    \begin{quote}
+Transform to pandas dataframe before training
+\end{quote}
+
+    \begin{quote}
+Split data 80\% training set and 20\% testing set
+\end{quote}
+
+    \begin{quote}
+Train the model
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 1/40
+2096/2096 [==============================] - 33s 10ms/step - loss: 0.5434 -
+accuracy: 0.8413 - val\_loss: 0.1932 - val\_accuracy: 0.9663
+Epoch 2/40
+2096/2096 [==============================] - 23s 11ms/step - loss: 0.1654 -
+accuracy: 0.9668 - val\_loss: 0.1250 - val\_accuracy: 0.9628
+Epoch 3/40
+2096/2096 [==============================] - 25s 12ms/step - loss: 0.1009 -
+accuracy: 0.9713 - val\_loss: 0.0843 - val\_accuracy: 0.9722
+Epoch 4/40
+2096/2096 [==============================] - 27s 13ms/step - loss: 0.0783 -
+accuracy: 0.9740 - val\_loss: 0.0769 - val\_accuracy: 0.9717
+Epoch 5/40
+2096/2096 [==============================] - 28s 13ms/step - loss: 0.0690 -
+accuracy: 0.9757 - val\_loss: 0.0650 - val\_accuracy: 0.9766
+Epoch 6/40
+2096/2096 [==============================] - 29s 14ms/step - loss: 0.0650 -
+accuracy: 0.9765 - val\_loss: 0.0688 - val\_accuracy: 0.9737
+Epoch 7/40
+2096/2096 [==============================] - 31s 15ms/step - loss: 0.0623 -
+accuracy: 0.9772 - val\_loss: 0.0607 - val\_accuracy: 0.9778
+Epoch 8/40
+2096/2096 [==============================] - 29s 14ms/step - loss: 0.0607 -
+accuracy: 0.9779 - val\_loss: 0.0755 - val\_accuracy: 0.9728
+Epoch 9/40
+2096/2096 [==============================] - 33s 16ms/step - loss: 0.0588 -
+accuracy: 0.9786 - val\_loss: 0.0601 - val\_accuracy: 0.9786
+Epoch 10/40
+2096/2096 [==============================] - 33s 16ms/step - loss: 0.0572 -
+accuracy: 0.9794 - val\_loss: 0.0912 - val\_accuracy: 0.9629
+Epoch 11/40
+2096/2096 [==============================] - 34s 16ms/step - loss: 0.0572 -
+accuracy: 0.9792 - val\_loss: 0.0543 - val\_accuracy: 0.9808
+Epoch 12/40
+2096/2096 [==============================] - 30s 15ms/step - loss: 0.0518 -
+accuracy: 0.9815 - val\_loss: 0.0569 - val\_accuracy: 0.9799
+Epoch 13/40
+2096/2096 [==============================] - 37s 18ms/step - loss: 0.0485 -
+accuracy: 0.9825 - val\_loss: 0.0437 - val\_accuracy: 0.9843
+Epoch 14/40
+2096/2096 [==============================] - 28s 13ms/step - loss: 0.0444 -
+accuracy: 0.9843 - val\_loss: 0.0590 - val\_accuracy: 0.9803
+Epoch 15/40
+2096/2096 [==============================] - 28s 13ms/step - loss: 0.0449 -
+accuracy: 0.9841 - val\_loss: 0.0425 - val\_accuracy: 0.9848
+Epoch 16/40
+2096/2096 [==============================] - 32s 15ms/step - loss: 0.0404 -
+accuracy: 0.9856 - val\_loss: 0.0503 - val\_accuracy: 0.9824
+Epoch 17/40
+2096/2096 [==============================] - 35s 17ms/step - loss: 0.0410 -
+accuracy: 0.9855 - val\_loss: 0.0362 - val\_accuracy: 0.9871
+Epoch 18/40
+2096/2096 [==============================] - 33s 16ms/step - loss: 0.0374 -
+accuracy: 0.9866 - val\_loss: 0.0370 - val\_accuracy: 0.9867
+Epoch 19/40
+2096/2096 [==============================] - 34s 16ms/step - loss: 0.0371 -
+accuracy: 0.9867 - val\_loss: 0.0367 - val\_accuracy: 0.9868
+Epoch 20/40
+2096/2096 [==============================] - 34s 16ms/step - loss: 0.0364 -
+accuracy: 0.9869 - val\_loss: 0.0337 - val\_accuracy: 0.9877
+Epoch 21/40
+2096/2096 [==============================] - 35s 17ms/step - loss: 0.0355 -
+accuracy: 0.9872 - val\_loss: 0.0342 - val\_accuracy: 0.9878
+Epoch 22/40
+2096/2096 [==============================] - 34s 16ms/step - loss: 0.0346 -
+accuracy: 0.9876 - val\_loss: 0.0335 - val\_accuracy: 0.9880
+Epoch 23/40
+2096/2096 [==============================] - 37s 18ms/step - loss: 0.0343 -
+accuracy: 0.9877 - val\_loss: 0.0343 - val\_accuracy: 0.9875
+Epoch 24/40
+2096/2096 [==============================] - 34s 16ms/step - loss: 0.0333 -
+accuracy: 0.9881 - val\_loss: 0.0367 - val\_accuracy: 0.9866
+Epoch 25/40
+2096/2096 [==============================] - 36s 17ms/step - loss: 0.0335 -
+accuracy: 0.9880 - val\_loss: 0.0343 - val\_accuracy: 0.9875
+Epoch 26/40
+2096/2096 [==============================] - 35s 17ms/step - loss: 0.0329 -
+accuracy: 0.9883 - val\_loss: 0.0323 - val\_accuracy: 0.9884
+Epoch 27/40
+2096/2096 [==============================] - 38s 18ms/step - loss: 0.0326 -
+accuracy: 0.9885 - val\_loss: 0.0320 - val\_accuracy: 0.9885
+Epoch 28/40
+2096/2096 [==============================] - 38s 18ms/step - loss: 0.0320 -
+accuracy: 0.9886 - val\_loss: 0.0309 - val\_accuracy: 0.9890
+Epoch 29/40
+2096/2096 [==============================] - 37s 18ms/step - loss: 0.0320 -
+accuracy: 0.9885 - val\_loss: 0.0363 - val\_accuracy: 0.9866
+Epoch 30/40
+2096/2096 [==============================] - 35s 17ms/step - loss: 0.0315 -
+accuracy: 0.9887 - val\_loss: 0.0332 - val\_accuracy: 0.9880
+Epoch 31/40
+2096/2096 [==============================] - 39s 18ms/step - loss: 0.0310 -
+accuracy: 0.9888 - val\_loss: 0.0320 - val\_accuracy: 0.9884
+Epoch 32/40
+2096/2096 [==============================] - 39s 19ms/step - loss: 0.0311 -
+accuracy: 0.9889 - val\_loss: 0.0332 - val\_accuracy: 0.9881
+Epoch 33/40
+2096/2096 [==============================] - 35s 17ms/step - loss: 0.0300 -
+accuracy: 0.9893 - val\_loss: 0.0335 - val\_accuracy: 0.9879
+Epoch 34/40
+2096/2096 [==============================] - 38s 18ms/step - loss: 0.0307 -
+accuracy: 0.9889 - val\_loss: 0.0301 - val\_accuracy: 0.9892
+Epoch 35/40
+2096/2096 [==============================] - 39s 19ms/step - loss: 0.0304 -
+accuracy: 0.9890 - val\_loss: 0.0330 - val\_accuracy: 0.9880
+Epoch 36/40
+2096/2096 [==============================] - 33s 16ms/step - loss: 0.0295 -
+accuracy: 0.9894 - val\_loss: 0.0304 - val\_accuracy: 0.9892
+Epoch 37/40
+2096/2096 [==============================] - 43s 21ms/step - loss: 0.0292 -
+accuracy: 0.9895 - val\_loss: 0.0296 - val\_accuracy: 0.9894
+Epoch 38/40
+2096/2096 [==============================] - 41s 20ms/step - loss: 0.0293 -
+accuracy: 0.9894 - val\_loss: 0.0314 - val\_accuracy: 0.9886
+Epoch 39/40
+2096/2096 [==============================] - 42s 20ms/step - loss: 0.0289 -
+accuracy: 0.9898 - val\_loss: 0.0321 - val\_accuracy: 0.9888
+Epoch 40/40
+2096/2096 [==============================] - 41s 20ms/step - loss: 0.0292 -
+accuracy: 0.9895 - val\_loss: 0.0295 - val\_accuracy: 0.9894
+    \end{Verbatim}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{69}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+<tensorflow.python.keras.callbacks.History at 0x7fedb1dde050>
+\end{Verbatim}
+\end{tcolorbox}
+        
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{71}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+<AxesSubplot:>
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_89_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{72}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+<AxesSubplot:>
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_90_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{quote}
+Accuracy = 98.94\%
+\end{quote}
+
+    \begin{quote}
+Saving the model \ldots{}
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+INFO:tensorflow:Assets written to: loan\_prediction\_model/assets
+    \end{Verbatim}
+
+    \# Gradient Boosting Tree (spark)
+
+    \begin{quote}
+Using the map reduce machine learning models of pyspark we can build
+model using HDFS
+\end{quote}
+
+    \begin{quote}
+Split data 80\% training set and 20\% testing set
+\end{quote}
+
+    \begin{quote}
+Saving the model \ldots{}
+\end{quote}
+
+    \begin{quote}
+Some Predictions
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
++--------------------+------------+----------+--------------------+
+|     scaled\_features|loan\_is\_paid|prediction|         probability|
++--------------------+------------+----------+--------------------+
+|(81,[0,1,2,3,4,5,{\ldots}|           1|       1.0|[0.05270399993585{\ldots}|
+|(81,[0,1,2,3,4,5,{\ldots}|           1|       1.0|[0.05443185145658{\ldots}|
+|(81,[0,1,2,3,4,5,{\ldots}|           0|       0.0|[0.95635347857271{\ldots}|
+|(81,[0,1,2,3,4,5,{\ldots}|           0|       0.0|[0.95635347857271{\ldots}|
+|(81,[0,1,2,3,4,5,{\ldots}|           0|       0.0|[0.95635347857271{\ldots}|
+|(81,[0,1,2,3,4,5,{\ldots}|           0|       0.0|[0.95635347857271{\ldots}|
+|(81,[0,1,2,3,4,5,{\ldots}|           0|       0.0|[0.95635347857271{\ldots}|
+|(81,[0,1,2,3,4,5,{\ldots}|           1|       1.0|[0.04368680010337{\ldots}|
+|(81,[0,1,2,3,4,5,{\ldots}|           1|       1.0|[0.08128007245037{\ldots}|
+|(81,[0,1,2,3,4,5,{\ldots}|           0|       1.0|[0.27032648846438{\ldots}|
++--------------------+------------+----------+--------------------+
+only showing top 10 rows
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Test Area Under ROC: 0.9524807005159022
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Test f1 score:  0.9744686686161473
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Test accuracy:  0.9746691093995363
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
++------------+----------+------+
+|loan\_is\_paid|prediction| count|
++------------+----------+------+
+|           1|       0.0|  2304|
+|           0|       0.0| 48570|
+|           1|       1.0|212115|
+|           0|       1.0|  4471|
++------------+----------+------+
+
+    \end{Verbatim}
+
+    \begin{quote}
+Previous table has FP, FN, TP and TN values
+\end{quote}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+\end{document}
