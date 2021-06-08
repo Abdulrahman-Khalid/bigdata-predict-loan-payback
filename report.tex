@@ -156,29 +156,26 @@
     % Document parameters
     % Document title
     \title{{\Huge Bigdata Project Report}}
-    
-% \author{
-    % \LARGE{Team \#1}\\
-    % \normalsize{Mahmoud Othman Adas} \small{\texttt{SEC:2, BN:19}}\\
-    % \normalsize{Yosry Mohamed Yosry} \small{\texttt{SEC:2, BN:33}}\\
-    % \normalsize{Ahmad Mahmoud AbdElMen'em Afifi} \small{\texttt{SEC:1, BN:5}}\\
-    % \normalsize{Abdulrahman Khalid Hassan} \small{\texttt{SEC:1, BN:30}}
-    % \begin{verbatim*}
-    %     +---------------------------------+-----+----+
-    %     |              Name               | SEC | BN |
-    %     +---------------------------------+-----+----+
-    %     | Abdulrahman Khalid Hassan       |   1 | 30 |
-    %     | Mahmoud Othman Adas             |   2 | 19 |
-    %     | Yosry Mohamed Yosry             |   2 | 33 |
-    %     | Ahmad Mahmoud AbdElMen'em Afifi |   1 |  5 |
-    %     +---------------------------------+-----+----+
-    % \end{verbatim*}
-% }
-\author{}
-% \date{}
-    
-    
-% Pygments definitions
+    % \author{
+        % \LARGE{Team \#1}\\
+        % \normalsize{Mahmoud Othman Adas} \small{\texttt{SEC:2, BN:19}}\\
+        % \normalsize{Yosry Mohamed Yosry} \small{\texttt{SEC:2, BN:33}}\\
+        % \normalsize{Ahmad Mahmoud AbdElMen'em Afifi} \small{\texttt{SEC:1, BN:5}}\\
+        % \normalsize{Abdulrahman Khalid Hassan} \small{\texttt{SEC:1, BN:30}}
+        % \begin{verbatim*}
+        %     +---------------------------------+-----+----+
+        %     |              Name               | SEC | BN |
+        %     +---------------------------------+-----+----+
+        %     | Abdulrahman Khalid Hassan       |   1 | 30 |
+        %     | Mahmoud Othman Adas             |   2 | 19 |
+        %     | Yosry Mohamed Yosry             |   2 | 33 |
+        %     | Ahmad Mahmoud AbdElMen'em Afifi |   1 |  5 |
+        %     +---------------------------------+-----+----+
+        % \end{verbatim*}
+    % }
+    \author{}
+
+    % Pygments definitions
 \makeatletter
 \def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
     \let\PY@ul=\relax \let\PY@tc=\relax%
@@ -392,31 +389,22 @@
 \begin{document}
     
     \maketitle
-
-    {\Large 
-    \begin{center}
-        \begin{verbatim}
-                             Team #1
-        +---------------------------------+-----+----+
-        |              Name               | SEC | BN |
-        +---------------------------------+-----+----+
-        | Abdulrahman Khalid Hassan       |   1 | 30 |
-        | Mahmoud Othman Adas             |   2 | 19 |
-        | Yosry Mohamed Yosry             |   2 | 33 |
-        | Ahmad Mahmoud AbdElMen'em Afifi |   1 |  5 |
-        +---------------------------------+-----+----+
-        \end{verbatim}
-    \end{center}
-    }
     
-    \section{Introduction}
+    
 
-LendingClub is a US peer-to-peer lending company, headquartered in San Francisco, California.
-It was the first peer-to-peer lender to register its offerings as securities with the Securities and Exchange Commission,
-and to offer loan trading on a secondary market.
+    
+    \# Introduction
 
-LendingClub is the world's largest peer-to-peer lending platform, Given historical data on loans given out with information on whether or not the borrower defaulted (charge-off), we can build a model that can predict if a borrower will pay back their loan.
-This way in the future when we get a new potential customer, we can assess if they are likely to pay back the loan.
+    LendingClub is a US peer-to-peer lending company, headquartered in San
+Francisco, California. It was the first peer-to-peer lender to register
+its offerings as securities with the Securities and Exchange Commission,
+and to offer loan trading on a secondary market. LendingClub is the
+world's largest peer-to-peer lending platform, Given historical data on
+loans given out with information on whether or not the borrower
+defaulted (charge-off), we can build a model that can predict if a
+borrower will pay back their loan. This way in the future when we get a
+new potential customer, we can assess if they are likely to pay back the
+loan.
 
 Objectives of this notebook is: - To show step-by-step how to visualize
 the dataset. - Data cleaning and preprocessing. - Assess whether or not
@@ -451,9 +439,7 @@ a new customer is likely to pay back the loan.
     \end{center}
     { \hspace*{\fill} \\}
     
-    \begin{quote}
-filter the loan status to be only fully paid and charged off
-\end{quote}
+    We filter the loan status to be only fully paid and charged off
 
     \begin{Verbatim}[commandchars=\\\{\}]
 +-----------+-------+
@@ -475,8 +461,8 @@ filter the loan status to be only fully paid and charged off
     \end{center}
     { \hspace*{\fill} \\}
     
-    \hypertarget{nulls-distribtion}{%
-\subsection{Nulls Distribtion}\label{nulls-distribtion}}
+    \hypertarget{handling-null-values}{%
+\subsection{Handling Null Values}\label{handling-null-values}}
 
 \begin{itemize}
 \tightlist
@@ -484,81 +470,79 @@ filter the loan status to be only fully paid and charged off
   Get columns which has the most number of null values and sort them
 \end{itemize}
 
-    \begin{quote}
-Visualize the most 50 columns with null values
-\end{quote}
+    \begin{itemize}
+\tightlist
+\item
+  Visualize the most 50 columns with null values
+\end{itemize}
 
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_12_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
-    \begin{quote}
-The first most 50 columns with highest numbers\textgreater{} of nulls
-values (Almost all the values are null as number of rows are 1345309
-initially) So we have to drop them all as deletion of the rows
-equivelant to the deletion of most of the data and I can't replace it
-with any value as most of the values are null, and also if these columns
-are important they would be filled
-\end{quote}
+    The first most 50 columns with highest numbers of null values (Almost
+all the values are null as number of rows are 1345309 initially) So we
+have to drop them all as deletion of the rows means the deletion of most
+of the data and I can't replace it mean value as most of the values are
+null it won't be the best option, and also if these columns are
+important they would be filled, so We will drop them
 
-    \begin{quote}
-Visualize the next most 50 columns in null values count
-\end{quote}
+    \begin{itemize}
+\tightlist
+\item
+  Next, We visualize the next most 50 columns have null values count
+\end{itemize}
 
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_15_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
-    \begin{quote}
-The first 95 columns has lots of nulls so I will drop them
-\end{quote}
-
-    \begin{quote}
-Next, I will drop the rows which has null values they will have a small
-number of rows
-\end{quote}
-
-    \begin{quote}
-Number of Rows and Columns Now
-\end{quote}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-(1340812, 56)
-    \end{Verbatim}
-
-    \begin{quote}
-Rows Dropped Successfully
-\end{quote}
+    \begin{itemize}
+\tightlist
+\item
+  From the previous graph the first 95 columns has lots of nulls so I
+  will drop them
+\item
+  Next, We will drop the rows which has null values they will have a
+  small number of rows
+\item
+  Now the Number Of Columns = 56, Number Of Rows = 1340812
+\end{itemize}
 
     \hypertarget{loan-amount-distribution}{%
 \subsection{Loan Amount Distribution}\label{loan-amount-distribution}}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_23_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_18_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{itemize}
+\tightlist
+\item
+  Most of loan amount 10,000 to 11,000 usd
+\end{itemize}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_20_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_24_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_21_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_25_0.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
-    \begin{quote}
-Drop the followin columns as they are constant columns and doesn't
-contribute to our prediction of loan\_status
-\end{quote}
+    From the above graphs, We can deduce that we have duplicates information
+for example, Drop the followin columns as they are constant columns and
+doesn't contribute to our prediction of loan\_status
 
     \# Bivariant Visualization
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_29_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_25_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -622,22 +606,22 @@ information redundancy
 \end{quote}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_35_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_31_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_36_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_32_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_37_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_33_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_38_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_34_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -654,11 +638,9 @@ After dropping these columns
     \hypertarget{loan_status-column}{%
 \subsubsection{loan\_status Column}\label{loan_status-column}}
 
-    \begin{quote}
-Map loan\_status to new column called loan\_is\_paid has 1 and 0 values
+    Map loan\_status to new column called loan\_is\_paid has 1 and 0 values
 only, 1 for Fully Paid and 0 for Charged Off, and then drop the old
 loan\_status column
-\end{quote}
 
     \begin{Verbatim}[commandchars=\\\{\}]
 +------------+-------+
@@ -670,12 +652,10 @@ loan\_status column
 
     \end{Verbatim}
 
-    \begin{quote}
-New Correlation matrix
-\end{quote}
+    New Correlation matrix:
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_48_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_44_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -684,18 +664,16 @@ Correlation between loan\_is\_paid and all other numeric columns
 \end{quote}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_50_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_46_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
     \hypertarget{term-column}{%
 \subsubsection{term Column}\label{term-column}}
 
-    \begin{quote}
-map term column to new term\_months columns with mapped values from ' 36
+    map term column to new term\_months columns with mapped values from ' 36
 months' to 36 and from ' 60 months' to 60, and then drop the old term
 column
-\end{quote}
 
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
 \prompt{Out}{outcolor}{44}{\boxspacing}
@@ -717,9 +695,7 @@ column
     \hypertarget{home_ownership-column}{%
 \subsubsection{home\_ownership Column}\label{home_ownership-column}}
 
-    \begin{quote}
-We can merge NONE with ANY in one category
-\end{quote}
+    We can merge NONE with ANY in one category
 
     \begin{Verbatim}[commandchars=\\\{\}]
 +--------------+------+
@@ -739,36 +715,31 @@ We can merge NONE with ANY in one category
 Columns}\label{grade-and-sub_grade-columns}}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_64_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_60_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_65_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_61_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
-    \begin{quote}
-grade is part of sub\_grade, so let's drop it
-\end{quote}
+    From the above graphs and analysis we can deduce that:
 
-\begin{quote}
-Date columns: issue\_d, last\_pymnt\_d, last\_credit\_pull\_d are not
-important to the analysis
-\end{quote}
-
-\begin{quote}
-earliest\_cr\_line which is the month when reported credit line was
-opened is not important to the analysis
-\end{quote}
-
-\begin{quote}
-url for LC page with listing data is not important to the analysis
-\end{quote}
-
-\begin{quote}
-addresses: zip\_code, addr\_state are not important to the analysis
-\end{quote}
+\begin{itemize}
+\item
+  grade is part of sub\_grade, so let's drop it
+\item
+  Date columns: issue\_d, last\_pymnt\_d, last\_credit\_pull\_d are not
+  important to the analysis
+\item
+  earliest\_cr\_line which is the month when reported credit line was
+  opened is not important to the analysis
+\item
+  url for LC page with listing data is not important to the analysis
+\item
+  addresses: zip\_code, addr\_state are not important to the analysis
+\end{itemize}
 
     \hypertarget{handle-categorical-features}{%
 \subsection{Handle Categorical
@@ -796,12 +767,16 @@ Features}\label{handle-categorical-features}}
     Select now the two important columns used in building the model: -
 scaled\_features - loan\_is\_paid
 
+    Schema:
+
     \begin{Verbatim}[commandchars=\\\{\}]
 root
  |-- scaled\_features: vector (nullable = true)
  |-- loan\_is\_paid: integer (nullable = true)
 
     \end{Verbatim}
+
+    First Row Of the dataframe:
 
     \begin{Verbatim}[commandchars=\\\{\}]
 +--------------------+------------+
@@ -813,11 +788,21 @@ only showing top 1 row
 
     \end{Verbatim}
 
-    \begin{quote}
-From previous table the number of scaled\_features are 81 feature
-\end{quote}
+    From previous table the number of scaled\_features are 81 feature
 
     \# Deeplearning Model
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Build the following deeplearning model with this output shapes
+  consists of 6 fully connected layer with relu function as the
+  activation function and the final activation function is a sigmoid
+\item
+  Compile the model with adam optimizer with accuracy metrics and
+  binary\_crossentropy loss function
+\end{enumerate}
 
     \begin{Verbatim}[commandchars=\\\{\}]
 Model: "sequential\_1"
@@ -842,148 +827,32 @@ Non-trainable params: 0
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
     \end{Verbatim}
 
-    \begin{quote}
-Transform to pandas dataframe before training
-\end{quote}
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Transform to the dataframe to pandas dataframe before training
+\end{enumerate}
 
-    \begin{quote}
-Split data 80\% training set and 20\% testing set
-\end{quote}
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Split data 80\% training set and 20\% testing set
+\end{enumerate}
 
-    \begin{quote}
-Train the model
-\end{quote}
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Finally, Train the model
+\end{enumerate}
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-Epoch 1/40
-2096/2096 [==============================] - 33s 10ms/step - loss: 0.5434 -
-accuracy: 0.8413 - val\_loss: 0.1932 - val\_accuracy: 0.9663
-Epoch 2/40
-2096/2096 [==============================] - 23s 11ms/step - loss: 0.1654 -
-accuracy: 0.9668 - val\_loss: 0.1250 - val\_accuracy: 0.9628
-Epoch 3/40
-2096/2096 [==============================] - 25s 12ms/step - loss: 0.1009 -
-accuracy: 0.9713 - val\_loss: 0.0843 - val\_accuracy: 0.9722
-Epoch 4/40
-2096/2096 [==============================] - 27s 13ms/step - loss: 0.0783 -
-accuracy: 0.9740 - val\_loss: 0.0769 - val\_accuracy: 0.9717
-Epoch 5/40
-2096/2096 [==============================] - 28s 13ms/step - loss: 0.0690 -
-accuracy: 0.9757 - val\_loss: 0.0650 - val\_accuracy: 0.9766
-Epoch 6/40
-2096/2096 [==============================] - 29s 14ms/step - loss: 0.0650 -
-accuracy: 0.9765 - val\_loss: 0.0688 - val\_accuracy: 0.9737
-Epoch 7/40
-2096/2096 [==============================] - 31s 15ms/step - loss: 0.0623 -
-accuracy: 0.9772 - val\_loss: 0.0607 - val\_accuracy: 0.9778
-Epoch 8/40
-2096/2096 [==============================] - 29s 14ms/step - loss: 0.0607 -
-accuracy: 0.9779 - val\_loss: 0.0755 - val\_accuracy: 0.9728
-Epoch 9/40
-2096/2096 [==============================] - 33s 16ms/step - loss: 0.0588 -
-accuracy: 0.9786 - val\_loss: 0.0601 - val\_accuracy: 0.9786
-Epoch 10/40
-2096/2096 [==============================] - 33s 16ms/step - loss: 0.0572 -
-accuracy: 0.9794 - val\_loss: 0.0912 - val\_accuracy: 0.9629
-Epoch 11/40
-2096/2096 [==============================] - 34s 16ms/step - loss: 0.0572 -
-accuracy: 0.9792 - val\_loss: 0.0543 - val\_accuracy: 0.9808
-Epoch 12/40
-2096/2096 [==============================] - 30s 15ms/step - loss: 0.0518 -
-accuracy: 0.9815 - val\_loss: 0.0569 - val\_accuracy: 0.9799
-Epoch 13/40
-2096/2096 [==============================] - 37s 18ms/step - loss: 0.0485 -
-accuracy: 0.9825 - val\_loss: 0.0437 - val\_accuracy: 0.9843
-Epoch 14/40
-2096/2096 [==============================] - 28s 13ms/step - loss: 0.0444 -
-accuracy: 0.9843 - val\_loss: 0.0590 - val\_accuracy: 0.9803
-Epoch 15/40
-2096/2096 [==============================] - 28s 13ms/step - loss: 0.0449 -
-accuracy: 0.9841 - val\_loss: 0.0425 - val\_accuracy: 0.9848
-Epoch 16/40
-2096/2096 [==============================] - 32s 15ms/step - loss: 0.0404 -
-accuracy: 0.9856 - val\_loss: 0.0503 - val\_accuracy: 0.9824
-Epoch 17/40
-2096/2096 [==============================] - 35s 17ms/step - loss: 0.0410 -
-accuracy: 0.9855 - val\_loss: 0.0362 - val\_accuracy: 0.9871
-Epoch 18/40
-2096/2096 [==============================] - 33s 16ms/step - loss: 0.0374 -
-accuracy: 0.9866 - val\_loss: 0.0370 - val\_accuracy: 0.9867
-Epoch 19/40
-2096/2096 [==============================] - 34s 16ms/step - loss: 0.0371 -
-accuracy: 0.9867 - val\_loss: 0.0367 - val\_accuracy: 0.9868
-Epoch 20/40
-2096/2096 [==============================] - 34s 16ms/step - loss: 0.0364 -
-accuracy: 0.9869 - val\_loss: 0.0337 - val\_accuracy: 0.9877
-Epoch 21/40
-2096/2096 [==============================] - 35s 17ms/step - loss: 0.0355 -
-accuracy: 0.9872 - val\_loss: 0.0342 - val\_accuracy: 0.9878
-Epoch 22/40
-2096/2096 [==============================] - 34s 16ms/step - loss: 0.0346 -
-accuracy: 0.9876 - val\_loss: 0.0335 - val\_accuracy: 0.9880
-Epoch 23/40
-2096/2096 [==============================] - 37s 18ms/step - loss: 0.0343 -
-accuracy: 0.9877 - val\_loss: 0.0343 - val\_accuracy: 0.9875
-Epoch 24/40
-2096/2096 [==============================] - 34s 16ms/step - loss: 0.0333 -
-accuracy: 0.9881 - val\_loss: 0.0367 - val\_accuracy: 0.9866
-Epoch 25/40
-2096/2096 [==============================] - 36s 17ms/step - loss: 0.0335 -
-accuracy: 0.9880 - val\_loss: 0.0343 - val\_accuracy: 0.9875
-Epoch 26/40
-2096/2096 [==============================] - 35s 17ms/step - loss: 0.0329 -
-accuracy: 0.9883 - val\_loss: 0.0323 - val\_accuracy: 0.9884
-Epoch 27/40
-2096/2096 [==============================] - 38s 18ms/step - loss: 0.0326 -
-accuracy: 0.9885 - val\_loss: 0.0320 - val\_accuracy: 0.9885
-Epoch 28/40
-2096/2096 [==============================] - 38s 18ms/step - loss: 0.0320 -
-accuracy: 0.9886 - val\_loss: 0.0309 - val\_accuracy: 0.9890
-Epoch 29/40
-2096/2096 [==============================] - 37s 18ms/step - loss: 0.0320 -
-accuracy: 0.9885 - val\_loss: 0.0363 - val\_accuracy: 0.9866
-Epoch 30/40
-2096/2096 [==============================] - 35s 17ms/step - loss: 0.0315 -
-accuracy: 0.9887 - val\_loss: 0.0332 - val\_accuracy: 0.9880
-Epoch 31/40
-2096/2096 [==============================] - 39s 18ms/step - loss: 0.0310 -
-accuracy: 0.9888 - val\_loss: 0.0320 - val\_accuracy: 0.9884
-Epoch 32/40
-2096/2096 [==============================] - 39s 19ms/step - loss: 0.0311 -
-accuracy: 0.9889 - val\_loss: 0.0332 - val\_accuracy: 0.9881
-Epoch 33/40
-2096/2096 [==============================] - 35s 17ms/step - loss: 0.0300 -
-accuracy: 0.9893 - val\_loss: 0.0335 - val\_accuracy: 0.9879
-Epoch 34/40
-2096/2096 [==============================] - 38s 18ms/step - loss: 0.0307 -
-accuracy: 0.9889 - val\_loss: 0.0301 - val\_accuracy: 0.9892
-Epoch 35/40
-2096/2096 [==============================] - 39s 19ms/step - loss: 0.0304 -
-accuracy: 0.9890 - val\_loss: 0.0330 - val\_accuracy: 0.9880
-Epoch 36/40
-2096/2096 [==============================] - 33s 16ms/step - loss: 0.0295 -
-accuracy: 0.9894 - val\_loss: 0.0304 - val\_accuracy: 0.9892
-Epoch 37/40
-2096/2096 [==============================] - 43s 21ms/step - loss: 0.0292 -
-accuracy: 0.9895 - val\_loss: 0.0296 - val\_accuracy: 0.9894
-Epoch 38/40
-2096/2096 [==============================] - 41s 20ms/step - loss: 0.0293 -
-accuracy: 0.9894 - val\_loss: 0.0314 - val\_accuracy: 0.9886
-Epoch 39/40
-2096/2096 [==============================] - 42s 20ms/step - loss: 0.0289 -
-accuracy: 0.9898 - val\_loss: 0.0321 - val\_accuracy: 0.9888
-Epoch 40/40
-2096/2096 [==============================] - 41s 20ms/step - loss: 0.0292 -
-accuracy: 0.9895 - val\_loss: 0.0295 - val\_accuracy: 0.9894
-    \end{Verbatim}
+    Loss Graph:
 
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{69}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-<tensorflow.python.keras.callbacks.History at 0x7fedb1dde050>
-\end{Verbatim}
-\end{tcolorbox}
-        
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
 \prompt{Out}{outcolor}{71}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -992,10 +861,12 @@ accuracy: 0.9895 - val\_loss: 0.0295 - val\_accuracy: 0.9894
 \end{tcolorbox}
         
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_89_1.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{report_files/report_88_1.png}
     \end{center}
     { \hspace*{\fill} \\}
     
+    Accuracy Graph:
+
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
 \prompt{Out}{outcolor}{72}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -1008,13 +879,15 @@ accuracy: 0.9895 - val\_loss: 0.0295 - val\_accuracy: 0.9894
     \end{center}
     { \hspace*{\fill} \\}
     
-    \begin{quote}
-Accuracy = 98.94\%
-\end{quote}
+    \textbf{Accuracy = 98.94\%}
 
-    \begin{quote}
-Saving the model \ldots{}
-\end{quote}
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Saving the model \ldots{}
+\end{enumerate}
 
     \begin{Verbatim}[commandchars=\\\{\}]
 INFO:tensorflow:Assets written to: loan\_prediction\_model/assets
@@ -1022,22 +895,33 @@ INFO:tensorflow:Assets written to: loan\_prediction\_model/assets
 
     \# Gradient Boosting Tree (spark)
 
-    \begin{quote}
-Using the map reduce machine learning models of pyspark we can build
-model using HDFS
-\end{quote}
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Using the map reduce machine learning models of pyspark and spark
+  dataframe we can build model using HDFS
+\end{enumerate}
 
-    \begin{quote}
-Split data 80\% training set and 20\% testing set
-\end{quote}
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Split data 80\% training set and 20\% testing set
+\item
+  Train the Gradient Boosting Tree Classifier using the training data
+\end{enumerate}
 
-    \begin{quote}
-Saving the model \ldots{}
-\end{quote}
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Finally, Saving the model \ldots{}
+\end{enumerate}
 
-    \begin{quote}
-Some Predictions
-\end{quote}
+    Some Predictions:
 
     \begin{Verbatim}[commandchars=\\\{\}]
 +--------------------+------------+----------+--------------------+
@@ -1082,9 +966,30 @@ Test accuracy:  0.9746691093995363
 
     \end{Verbatim}
 
-    \begin{quote}
-Previous table has FP, FN, TP and TN values
-\end{quote}
+    Previous table has False Positive, False Negative, True Positive and
+True Negative values
+
+    \textbf{Accuracy = 97.46\%}
+
+    \# Conclusion
+
+    \begin{itemize}
+\tightlist
+\item
+  We visualized the dataset using univarient and multivarient
+  visualization and deduced some information from it
+\item
+  We've done some Data cleaning and preprocessing to prepare the data to
+  build our models
+\item
+  We using HDFS for both data visualizing, data preprocessing and
+  building gradient boosing tree classifier with accuracy 97.46\%
+\item
+  We also made a deeplearning model with accuracy 98.94\%
+\item
+  Both models assess whether or not a new customer is likely to pay back
+  the loan, so this analysis is very important for decision making.
+\end{itemize}
 
 
     % Add a bibliography block to the postdoc
