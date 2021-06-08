@@ -1,3 +1,9 @@
 .ipynb_checkpoints/
 gbtc_loan_prediction/
 loan_prediction_model/
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz

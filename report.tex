@@ -155,10 +155,27 @@
     \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
     % Document parameters
     % Document title
-    \title{report}
+    \title{{\Huge Bigdata Project Report}}
     
-    
-    
+% \author{
+    % \LARGE{Team \#1}\\
+    % \normalsize{Mahmoud Othman Adas} \small{\texttt{SEC:2, BN:19}}\\
+    % \normalsize{Yosry Mohamed Yosry} \small{\texttt{SEC:2, BN:33}}\\
+    % \normalsize{Ahmad Mahmoud AbdElMen'em Afifi} \small{\texttt{SEC:1, BN:5}}\\
+    % \normalsize{Abdulrahman Khalid Hassan} \small{\texttt{SEC:1, BN:30}}
+    % \begin{verbatim*}
+    %     +---------------------------------+-----+----+
+    %     |              Name               | SEC | BN |
+    %     +---------------------------------+-----+----+
+    %     | Abdulrahman Khalid Hassan       |   1 | 30 |
+    %     | Mahmoud Othman Adas             |   2 | 19 |
+    %     | Yosry Mohamed Yosry             |   2 | 33 |
+    %     | Ahmad Mahmoud AbdElMen'em Afifi |   1 |  5 |
+    %     +---------------------------------+-----+----+
+    % \end{verbatim*}
+% }
+\author{}
+% \date{}
     
     
 % Pygments definitions
@@ -375,22 +392,31 @@
 \begin{document}
     
     \maketitle
-    
-    
 
+    {\Large 
+    \begin{center}
+        \begin{verbatim}
+                             Team #1
+        +---------------------------------+-----+----+
+        |              Name               | SEC | BN |
+        +---------------------------------+-----+----+
+        | Abdulrahman Khalid Hassan       |   1 | 30 |
+        | Mahmoud Othman Adas             |   2 | 19 |
+        | Yosry Mohamed Yosry             |   2 | 33 |
+        | Ahmad Mahmoud AbdElMen'em Afifi |   1 |  5 |
+        +---------------------------------+-----+----+
+        \end{verbatim}
+    \end{center}
+    }
     
-    \# Introduction
+    \section{Introduction}
 
-    LendingClub is a US peer-to-peer lending company, headquartered in San
-Francisco, California. It was the first peer-to-peer lender to register
-its offerings as securities with the Securities and Exchange Commission,
-and to offer loan trading on a secondary market. LendingClub is the
-world's largest peer-to-peer lending platform, Given historical data on
-loans given out with information on whether or not the borrower
-defaulted (charge-off), we can build a model that can predict if a
-borrower will pay back their loan. This way in the future when we get a
-new potential customer, we can assess if they are likely to pay back the
-loan.
+LendingClub is a US peer-to-peer lending company, headquartered in San Francisco, California.
+It was the first peer-to-peer lender to register its offerings as securities with the Securities and Exchange Commission,
+and to offer loan trading on a secondary market.
+
+LendingClub is the world's largest peer-to-peer lending platform, Given historical data on loans given out with information on whether or not the borrower defaulted (charge-off), we can build a model that can predict if a borrower will pay back their loan.
+This way in the future when we get a new potential customer, we can assess if they are likely to pay back the loan.
 
 Objectives of this notebook is: - To show step-by-step how to visualize
 the dataset. - Data cleaning and preprocessing. - Assess whether or not
